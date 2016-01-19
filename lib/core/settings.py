@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-
+#coding= utf-8
 """
 Copyright (c) 2006-2016 sqlmap developers (http://sqlmap.org/)
 See the file 'doc/COPYING' for copying permission
+
 """
 
 import os
@@ -30,6 +31,10 @@ GIT_REPOSITORY = "git://github.com/sqlmapproject/sqlmap.git"
 GIT_PAGE = "https://github.com/sqlmapproject/sqlmap"
 
 # colorful banner
+"""
+格式: echo -e "\033[字背景颜色;字体颜色m字符串\033[0m"
+"""
+
 BANNER = """\033[01;33m         _
  ___ ___| |_____ ___ ___  \033[01;37m{\033[01;%dm%s\033[01;37m}\033[01;33m
 |_ -| . | |     | .'| . |

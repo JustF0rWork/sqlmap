@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#coding=utf-8
 
 """
 Copyright (c) 2006-2016 sqlmap developers (http://sqlmap.org/)
@@ -257,7 +258,7 @@ def start():
         setupTargetEnv()
         action()
         return True
-
+    #将参数加入数据库
     if conf.url and not any((conf.forms, conf.crawlDepth)):
         kb.targets.add((conf.url, conf.method, conf.data, conf.cookie, None))
 

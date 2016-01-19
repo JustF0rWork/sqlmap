@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#coding=utf-8
 
 """
 Copyright (c) 2006-2016 sqlmap developers (http://sqlmap.org/)
@@ -79,23 +80,33 @@ def main():
             logger.error(errMsg)
             raise SystemExit
 
-        setPaths()
+        setPaths() #获取程序中各个文件的配置路径
 
         # Store original command line options for possible later restoration
         cmdLineOptions.update(cmdLineParser().__dict__)
-        initOptions(cmdLineOptions)
+        initOptions(cmdLineOptions)   #获取所有的输入的参数
 
-        if hasattr(conf, "api"):
+        """
+        hasattr(object,name)判断对象object是否包含名为name的特性（hasattr是通过调用getattr(ojbect, name)是否抛出异常来实现的）
+        >>> hasattr(list, 'append')
+        True
+        >>> hasattr(list, 'add')
+        False
+        """
+        if hasattr(conf, "api"):        #conf 中是否包含api的属性
             # Overwrite system standard output and standard error to write
             # to an IPC database
             sys.stdout = StdDbOut(conf.taskid, messagetype="stdout")
             sys.stderr = StdDbOut(conf.taskid, messagetype="stderr")
             setRestAPILog()
 
-        banner()
+        banner()    #打印出sqlmap图标
 
         conf.showTime = True
-        dataToStdout("[!] legal disclaimer: %s\n\n" % LEGAL_DISCLAIMER, forceOutput=True)
+        """
+        time.strftime()可以用来获得当前时间，可以将时间格式化为字符串等等
+        """
+        dataToStdout("[!] legal disclaimer: %s\n\n" % LEGAL_DISCLAIMER, forceOutput=True)#字符串流输出到屏幕
         dataToStdout("[*] starting at %s\n\n" % time.strftime("%X"), forceOutput=True)
 
         init()
@@ -107,7 +118,7 @@ def main():
         elif conf.liveTest:
             liveTest()
         else:
-            start()
+            start() #函数运行开始
 
     except SqlmapUserQuitException:
         errMsg = "user quit"

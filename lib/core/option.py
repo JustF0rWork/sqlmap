@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+#coding=utf-8
 """
 Copyright (c) 2006-2016 sqlmap developers (http://sqlmap.org/)
 See the file 'doc/COPYING' for copying permission
@@ -2535,36 +2535,36 @@ def init():
     _saveConfig()
     _setRequestFromFile()
     _cleanupOptions()
-    _dirtyPatches()
-    _purgeOutput()
+    _dirtyPatches()             #修改readline()为1024×1024
+    _purgeOutput()              #remove output文件夹
     _checkDependencies()
-    _createTemporaryDirectory()
+    _createTemporaryDirectory() #/tmp文件夹
     _basicOptionValidation()
-    _setProxyList()
-    _setTorProxySettings()
-    _setDNSServer()
+    _setProxyList()             #读取代理文件或者代理参数
+    _setTorProxySettings()      #Tor匿名网络
+    _setDNSServer()             #Dns服务器设置
     _adjustLoggingFormatter()
-    _setMultipleTargets()
+    _setMultipleTargets()       #设置多个目标
     _setTamperingFunctions()
     _setWafFunctions()
     _setTrafficOutputFP()
     _resolveCrossReferences()
     _checkWebSocket()
 
-    parseTargetUrl()
+    parseTargetUrl()            #解析url并分解为几个参数存储到conf中
     parseTargetDirect()
 
     if any((conf.url, conf.logFile, conf.bulkFile, conf.sitemapUrl, conf.requestFile, conf.googleDork, conf.liveTest)):
-        _setHTTPTimeout()
-        _setHTTPExtraHeaders()
+        _setHTTPTimeout()       #默认为30s
+        _setHTTPExtraHeaders()  #httpheaders
         _setHTTPCookies()
         _setHTTPReferer()
         _setHTTPHost()
-        _setHTTPUserAgent()
+        _setHTTPUserAgent()     #添加UserAgent
         _setHTTPAuthentication()
         _setHTTPHandlers()
         _setDNSCache()
-        _setSocketPreConnect()
+        _setSocketPreConnect()  #设置多线程连接
         _setSafeVisit()
         _doSearch()
         _setBulkMultipleTargets()
@@ -2573,15 +2573,17 @@ def init():
         _setCrawler()
         _findPageForms()
         _setDBMS()
-        _setTechnique()
-
-    _setThreads()
-    _setOS()
+        _setTechnique()         #需要再仔细看
+        """
+        下面是关键点
+        """
+    _setThreads()               #设置线程
+    _setOS()                    #设置后台操作系统
     _setWriteFile()
-    _setMetasploit()
+    _setMetasploit()            #与metasploit联合使用,需要仔细了解
     _setDBMSAuthentication()
-    loadBoundaries()
-    loadPayloads()
+    loadBoundaries()            #读取boundaries.xml文件
+    loadPayloads()              #读取所有的xml/payloads文件
     _setPrefixSuffix()
     update()
     _loadQueries()
