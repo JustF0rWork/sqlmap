@@ -2564,7 +2564,7 @@ def init():
         _setHTTPAuthentication()
         _setHTTPHandlers()
         _setDNSCache()
-        _setSocketPreConnect()  #设置多线程连接
+     #   _setSocketPreConnect()  #设置多线程连接
         _setSafeVisit()
         _doSearch()
         _setBulkMultipleTargets()
@@ -2582,8 +2582,8 @@ def init():
     _setWriteFile()
     _setMetasploit()            #与metasploit联合使用,需要仔细了解
     _setDBMSAuthentication()
-    loadBoundaries()            #读取boundaries.xml文件
-    loadPayloads()              #读取所有的xml/payloads文件
-    _setPrefixSuffix()
+    loadBoundaries()            #读取boundaries.xml文件并存储到conf.boundaries中，一共55个boundary节点。
+    loadPayloads()              #读取所有的xml/payloads文件并存储到conf.tests中，一共287个tests节点
+    _setPrefixSuffix()          #设置payload的前缀和后缀
     update()
-    _loadQueries()
+    _loadQueries()              #读取queries.xml文件，并读取到queries变量中

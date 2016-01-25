@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+#coding=utf-8
 """
 Copyright (c) 2006-2016 sqlmap developers (http://sqlmap.org/)
 See the file 'doc/COPYING' for copying permission
@@ -715,8 +715,8 @@ def initTargetEnv():
 
 def setupTargetEnv():
     _createTargetDirs()
-    _setRequestParams()
-    _setHashDB()
+    _setRequestParams()     #解析请求url，存储其cookie，获取其GET或者POST参数
+    _setHashDB()            #设置session.sqilte文件
     _resumeHashDBValues()
     _setResultsFile()
     _setAuthCred()

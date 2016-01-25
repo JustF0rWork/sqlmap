@@ -275,7 +275,7 @@ def start():
     hostCount = 0
     initialHeaders = list(conf.httpHeaders)
 
-    for targetUrl, targetMethod, targetData, targetCookie, targetHeaders in kb.targets:
+    for targetUrl, targetMethod, targetData, targetCookie, targetHeaders in kb.targets:#多目标
         try:
             conf.url = targetUrl
             conf.method = targetMethod.upper() if targetMethod else targetMethod
@@ -284,8 +284,8 @@ def start():
             conf.httpHeaders = list(initialHeaders)
             conf.httpHeaders.extend(targetHeaders or [])
 
-            initTargetEnv()
-            parseTargetUrl()
+            initTargetEnv()     #初始化目标环境
+            parseTargetUrl()    #通过url获取端口是80或者443
 
             testSqlInj = False
 
@@ -373,8 +373,11 @@ def start():
                     infoMsg = "testing URL '%s'" % targetUrl
                     logger.info(infoMsg)
 
-            setupTargetEnv()
+            setupTargetEnv()        #解析url，读取之前扫描之后存储的session.sqlite文件中的数据
 
+            """
+            checkConnection()请求url页面并获取page和headers
+            """
             if not checkConnection(suppressOutput=conf.forms) or not checkString() or not checkRegexp():
                 continue
 
@@ -606,6 +609,9 @@ def start():
 
                     raise SqlmapNotVulnerableException(errMsg)
             else:
+                """
+                几个关键函数
+                """
                 # Flush the flag
                 kb.testMode = False
 
@@ -624,7 +630,7 @@ def start():
                     condition = True
 
                 if condition:
-                    action()
+                    action()#开始注入
 
         except KeyboardInterrupt:
             if conf.multipleTargets:
